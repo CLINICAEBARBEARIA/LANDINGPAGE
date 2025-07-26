@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Acesso Exclusivo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS com estrutura profissional e design solicitado */
+
+        /* 1. Variáveis de Cor e Configurações Globais */
+        :root {
+            --background-purple: #1a0b2e;
+            --container-purple: #2a114a;
+            --accent-green: #00ff9d;
+            --text-white: #f0f0f0;
+            --text-gray: #a0a0b0;
+            --shadow-glow: rgba(0, 255, 157, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 2. Estilo do Corpo da Página (Body) */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-purple);
+            background-image: radial-gradient(circle at 20% 20%, rgba(42, 17, 74, 0.5) 0%, transparent 40%),
+                              radial-gradient(circle at 80% 70%, rgba(0, 255, 157, 0.1) 0%, transparent 30%);
+            color: var(--text-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            opacity: 0;
+            animation: fadeInBody 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeInBody {
+            to { opacity: 1; }
+        }
+
+        /* 3. Container Principal */
+        main.quiz-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--container-purple);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--shadow-glow);
+            padding: 3rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUpFadeIn 0.8s ease-out 0.5s forwards;
+        }
+        
+        @keyframes slideUpFadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* 4. Cabeçalho do Formulário */
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: -1px;
+        }
+
+        .quiz-header p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* 5. Estilo dos Grupos de Formulário e Inputs */
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            background-color: var(--background-purple);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 1rem;
+            color: var(--text-white);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group input::placeholder {
+            color: var(--text-gray);
+            opacity: 0.7;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 15px var(--shadow-glow);
+        }
+
+        /* 6. Estilo do Player de Áudio */
+        .form-group audio {
+            width: 100%;
+            height: 45px;
+            margin-bottom: 1rem;
+            filter: invert(1) sepia(1) saturate(5) hue-rotate(90deg);
+        }
+        
+        /* 7. Botão de Submissão */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--background-purple);
+            background-color: var(--accent-green);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            background-color: var(--text-gray);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main class="quiz-container">
+        <header class="quiz-header">
+            <h1>Acesso Exclusivo</h1>
+            <p>Complete as etapas para validar seu acesso.</p>
+        </header>
+
+        <form id="interactive-form" action="http://localhost:5678/webhook-test/captura-quiz" method="POST">
+            
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <audio controls autoplay>
+                    <source src="https://storage.googleapis.com/gemini-chatbot-us-prod-us-east1-assets/pergunta_nome.mp3" type="audio/mpeg">
+                </audio>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome e sobrenome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Seu Melhor E-mail</label>
+                <audio controls>
+                    <source src="https://storage.googleapis.com/gemini-chatbot-us-prod-us-east1-assets/pergunta_email.mp3" type="audio/mpeg">
+                </audio>
+                <input type="email" id="email" name="email" placeholder="email.profissional@exemplo.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefone">WhatsApp (com DDD)</label>
+                <audio controls>
+                    <source src="https://storage.googleapis.com/gemini-chatbot-us-prod-us-east1-assets/pergunta_telefone.mp3" type="audio/mpeg">
+                </audio>
+                <input type="text" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+            </div>
+            
+            <button type="submit" id="submit-button" class="submit-btn">Validar Acesso</button>
+            
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('interactive-form');
+            const submitButton = document.getElementById('submit-button');
+
+            if (form && submitButton) {
+                const originalButtonText = submitButton.textContent;
+
+                form.addEventListener('submit', (e) => {
+                    if (!form.checkValidity()) {
+                        return;
+                    }
+                    
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Enviando...';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
